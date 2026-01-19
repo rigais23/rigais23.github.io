@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricard Garcia | WebFolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; 
+            font-family: 'Outfit', sans-serif; 
+            
+            display: flex;
+            justify-content: center; 
+            align-items: center;     
+            height: 100vh;           
+        }
+        
+        #defaultCanvas0 {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1; 
+        }
+
+        .centro {
+            text-align: center;
+            color: #0e0e0e; 
+            padding: 20px;
+            max-width: 90%; 
+        }
+
+        /* Main Text */
+        h1 { 
+            font-size: 5rem; 
+            margin: 0 0 15px 0; 
+            font-weight: 600; 
+            letter-spacing: -2px; 
+            text-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+            line-height: 1; 
+        }
+        
+        /* Link Container */
+        .cargo { 
+            font-size: 1.5rem; 
+            font-weight: 500; 
+        }        
+
+        /* Links */
+        .cargo a {
+            color: #191919;       
+            margin: 0 30px; 
+            font-weight: 500;     
+            position: relative;
+            transition: opacity 0.3s;
+        }
+
+        /* Visited Links */
+        .cargo a:visited {
+            color: #191919;
+        }
+
+        /* Mouse Links */
+        .cargo a:hover {
+            opacity: 0.6;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="centro">
+        <h1>Hello, I'm Ricard Garcia!</h1>
+                
+        <div class="cargo">
+            <a href="https://www.linkedin.com/in/ricard-garcia-isern-55b42a297/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/rigais23" target="_blank">GitHub</a>
+        </div>
+    </div>
+
+    <script>
+        let scaleVal = 50.0; 
+        let z_time = 0;
+        
+        let colorWhite; 
+        let colorBlue; 
+        let colorBlueSky; 
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            noStroke();
+            noiseDetail(6, 0.5); 
+            
+            colorWhite = color(255, 255, 255);
+            colorBlue = color(23, 159, 241);
+            colorBlueSky = color(156, 220, 254);
+        }
+
+        function draw() {
+            let blockSize = windowWidth / 300; 
+            z_time += 1 / 175.0;
+
+            for (let x = 0; x < width; x += blockSize) {
+                for (let y = 0; y < height; y += blockSize) {
+                    
+                    let i = x / blockSize;
+                    let j = y / blockSize;
+                    let n = noise(i / scaleVal, j / scaleVal, z_time);
+                    
+                    // Lógica de más blanco (tu ajuste anterior)
+                    if (n < 0.4) {
+                        fill(colorBlue); 
+                    } else if (n < 0.45) {
+                        fill(colorBlueSky); 
+                    } else {
+                        fill(colorWhite); 
+                    }
+                    rect(x, y, blockSize + 1, blockSize + 1);
+                }
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>
