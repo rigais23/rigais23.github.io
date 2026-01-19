@@ -105,7 +105,15 @@
         }
 
         function draw() {
-            let blockSize = windowWidth / 100; 
+            let columns;
+            if (windowWidth > 800) {
+                columns = 300; 
+            } 
+            else {
+                columns = 100;
+            }
+
+            let blockSize = windowWidth / columns; 
             z_time += 1 / 175.0;
 
             for (let x = 0; x < width; x += blockSize) {
@@ -115,7 +123,6 @@
                     let j = y / blockSize;
                     let n = noise(i / scaleVal, j / scaleVal, z_time);
                     
-                    // Lógica de más blanco (tu ajuste anterior)
                     if (n < 0.4) {
                         fill(colorBlue); 
                     } else if (n < 0.45) {
